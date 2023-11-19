@@ -136,7 +136,6 @@ def custom_convert_ldm_vae_checkpoint(checkpoint, config):
 def vae_pt_to_vae_diffuser(
     checkpoint_path: str,
     output_path: str,
-    bin_file_path: str,
 ):
     # Only support V1
     r = requests.get(
@@ -171,8 +170,8 @@ if __name__ == "__main__":
 
     parser.add_argument("--vae_pt_path", default=None, type=str, required=True, help="Path to the VAE.pt to convert.")
     parser.add_argument("--dump_path", default=None, type=str, required=True, help="Path to the VAE.pt to convert.")
-    parser.add_argument("--bin_file_path", default=None, type=str, required=True, help="Path to save the bin file.")
+  
 
     args = parser.parse_args()
 
-    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, args.bin_file_path)
+    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path)
