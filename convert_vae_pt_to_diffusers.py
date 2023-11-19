@@ -136,17 +136,17 @@ def custom_convert_ldm_vae_checkpoint(checkpoint, config):
 def vae_pt_to_vae_diffuser(
     checkpoint_path: str,
     output_path: str,
-    bin_file_path: str, #add bin_file_path as an argument
 ):
     # Only support V1
     r = requests.get(
-        " https://raw.githubusercontent.com/CompVis/stable-diffusion/main/configs/stable-diffusion/v1-inference.yaml"
+        "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/configs/stable-diffusion/v1-inference.yaml"
     )
     io_obj = io.BytesIO(r.content)
 
     original_config = OmegaConf.load(io_obj)
     image_size = 512
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    
     if checkpoint_path.endswith("safetensors"):
         from safetensors import safe_open
 
@@ -155,7 +155,7 @@ def vae_pt_to_vae_diffuser(
             for key in f.keys():
                 checkpoint[key] = f.get_tensor(key)
     else:
-        checkpoint = torch.load(checkpoint_path, map_location=device)["state_dict"]
+        checkpoint = torch.load(checkpoint_path, map_location=device)
 
     # Convert the VAE model.
     vae_config = create_vae_diffusers_config(original_config, image_size=image_size)
@@ -165,18 +165,13 @@ def vae_pt_to_vae_diffuser(
     vae.load_state_dict(converted_vae_checkpoint)
     vae.save_pretrained(output_path)
 
-
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--vae_pt_path", default=None, type=str, required=True, help="Path to the VAE.pt to convert.")
     parser.add_argument("--dump_path", default=None, type=str, required=True, help="Path to the VAE.pt to convert.")
-    parser.add_argument("--bin_file_path", default=None, type=str, required=True, help="Where to dump the bin file when done.")
-    
+    parser.add_argument("--bin_file_path", default=None, type=str, required=True, help="Path to save the bin file.")
+
     args = parser.parse_args()
 
     vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, args.bin_file_path)
-
-
