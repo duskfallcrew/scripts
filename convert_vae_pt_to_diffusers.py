@@ -136,6 +136,7 @@ def custom_convert_ldm_vae_checkpoint(checkpoint, config):
 def vae_pt_to_vae_diffuser(
     checkpoint_path: str,
     output_path: str,
+    bin_file_path: str,
 ):
     # Only support V1
     r = requests.get(
