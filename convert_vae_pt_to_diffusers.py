@@ -136,7 +136,7 @@ def custom_convert_ldm_vae_checkpoint(checkpoint, config):
 def vae_pt_to_vae_diffuser(
     checkpoint_path: str,
     output_path: str,
-    bin_location: str,  # Add bin_location as an argument
+    bin_file_path: str, #add bin_file_path as an argument
 ):
     # Only support V1
     r = requests.get(
@@ -165,9 +165,7 @@ def vae_pt_to_vae_diffuser(
     vae.load_state_dict(converted_vae_checkpoint)
     vae.save_pretrained(output_path)
 
- # Optionally, move the converted binary file to the specified bin_location
-if bin_location:
-        torch.save(converted_vae_checkpoint, bin_location)
+
 
 
 if __name__ == "__main__":
@@ -175,10 +173,10 @@ if __name__ == "__main__":
 
     parser.add_argument("--vae_pt_path", default=None, type=str, required=True, help="Path to the VAE.pt to convert.")
     parser.add_argument("--dump_path", default=None, type=str, required=True, help="Path to the VAE.pt to convert.")
-    parser.add_argument("--bin_location", default=None, type=str, help="Path to save the converted binary file.")
+    parser.add_argument("--bin_file_path", default=None, type=str, required=True, help="Where to dump the bin file when done.")
     args = parser.parse_args()
 
-    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, args.bin_location)
+    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, args.bin_file_path)
     args = parser.parse_args()
 
-    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path)
+    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, args.bin_file_path)
