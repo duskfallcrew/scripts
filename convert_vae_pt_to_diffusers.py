@@ -174,4 +174,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path)
+    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, config)
+
