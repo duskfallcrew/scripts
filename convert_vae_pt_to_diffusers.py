@@ -179,4 +179,3 @@ if __name__ == "__main__":
     vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, args.bin_file_path)
     args = parser.parse_args()
 
-    vae_pt_to_vae_diffuser(args.vae_pt_path, args.dump_path, args.bin_file_path)
