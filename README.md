@@ -30,3 +30,8 @@ Please note you're gonna replace your path with either your server details, or y
 
 We reworked that because wer'e not going to doxx our hard drive details to you!
 
+HF Hub Upload Comfy UI Node:
+allow you to upload easier to HF from comfyUI
+instead of manually messing around - especially if you're on a server
+Tested? No, i'm going to eventually.
+
