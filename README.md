@@ -35,3 +35,6 @@ allow you to upload easier to HF from comfyUI
 instead of manually messing around - especially if you're on a server
 Tested? No, i'm going to eventually.
 
+HF Download:
+Civit, Huggingface and MOST places i think? it's a ComfyUI node, i dont understand about getting dependencies, so you may need Aria2 for this.
+
