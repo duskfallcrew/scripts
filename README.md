@@ -1,40 +1,54 @@
-# scripts
-Code scripts from repositories - but with minor edits. Likely aren't really working, but if they are they are being used in our colab and notebook spaces.
+# Scripts
+This repository contains a collection of code scripts primarily designed for use in our Colab and notebook spaces. These scripts have been sourced from various repositories and modified to suit our specific needs. While we strive for functionality, please note that these scripts may not be fully operational or optimized, as we are not expert programmers. Contributions and improvements from the community are highly encouraged!
 
-Right now there's just the huggingface diffusers conversion for vae, and we can't even tell if it's doing what it needs to do, we're not great at programming.
+Current Focus: Hugging Face Diffusers VAE Conversion
+One of our primary focuses is converting Variational Autoencoder (VAE) models, particularly those in .safetensors, .pt, and .ckpt formats used with Stable Diffusion 1.5, into the diffusers library format, specifically targeting the .bin output.
 
-We don't have security turned on this thing so if you're curious what we're trying to do basically it's this:
+## Challenges
+We are currently facing issues with the VAE conversion process:
 
-Convert 1.5 VAE (safetensors, PT, ckpt) etc to diffusers, but only the BIN format. 
+The script is producing .bin files that are only 9KB instead of the expected size (around 300MB), indicating that the conversion is not working as intended.
 
-Currently we're needing to also have our script pull off a json file with the KL encoder details - that's sort of either going to be handled ON this script or in colab later on. 
+We're working to modify the script to correctly handle the .bin format, but we need a better understanding of the underlying logic.
 
-Problems we're facing:
+Our current approach involves pulling a JSON file with KL encoder details, which we're considering handling either directly in this script or in a Colab notebook.
 
-- Vae keeps converting to bin but a 9kb file instead of 300mb file.
+Any assistance or guidance on resolving these issues would be greatly appreciated!
 
-So the point is to try and modify the thing, to do the bin file, but we don't quite understand the logic requirements.
+### New File: textmaker.py
+We've recently added textmaker.py, a script developed with the help of ChatGPT, designed to simplify the creation of text files alongside image datasets.
 
-# New Files:
+### Functionality
+Purpose: textmaker.py creates a corresponding .txt file for each image file in a specified directory. It's useful for adding single-line text descriptions or tags to images, though it's not a full-fledged image tagging script.
 
-Textmaker: 
+Performance: Efficient and fast, taking approximately 5 seconds to process on a 2019 Mac.
 
-This is a new one we just got made via ChatGPT, which just adds text files next to well assumed to be your "IMAGES" - it's good for just single text lines, it's not an actual tagging script. 
-This takes what 5 seconds on a 2019 mac and honestly is a breeze? 
+## Usage
+Command Line:
+```
+python textmaker.py /path/to/your/folder "Your words here"
+Use code with caution.
+```
+#### Example:
+```
+python textmaker.py "/Users/YourUserName/Path/To/Your/Images" "Your desired text here"
+```
+Note: Replace /path/to/your/folder and "Your words here" with your actual file path and desired text. The example path has been modified for privacy.
 
-Command line: python textmaker.py /path/to/your/folder "Your words here"
+## In Progress Scripts 
+ComfyUI Nodes for Hugging Face Hub
+HF Hub Upload ComfyUI Node
+Functionality: This node is intended to facilitate uploading files from ComfyUI to the Hugging Face Hub, streamlining the process compared to manual uploads.
 
-Example command line: python textmaker.py "/Users/CosetteXT/Desktop/Avon Diffusers Stuff/AIKittensRuS" "JeffyKitties"
+Testing Status: Not yet tested.
 
-Please note you're gonna replace your path with either your server details, or your hard drive details, and you'll clearly have your own tag.
+HF Download ComfyUI Node
+Functionality: Designed to download from CivitAI, Hugging Face, and possibly other sources. It's built as a ComfyUI node.
 
-We reworked that because wer'e not going to doxx our hard drive details to you!
+Dependencies: May require Aria2. Further details on dependencies are not fully clear at this time.
 
-HF Hub Upload Comfy UI Node:
-allow you to upload easier to HF from comfyUI
-instead of manually messing around - especially if you're on a server
-Tested? No, i'm going to eventually.
+Contributions
+We welcome contributions, suggestions, and improvements to these scripts. If you have expertise in any of these areas, especially regarding the VAE conversion or ComfyUI nodes, your input would be invaluable.
 
-HF Download:
-Civit, Huggingface and MOST places i think? it's a ComfyUI node, i dont understand about getting dependencies, so you may need Aria2 for this.
+
 
