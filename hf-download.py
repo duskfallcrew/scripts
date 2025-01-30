@@ -97,12 +97,13 @@ class HuggingFaceDownloadNode:
                 filename = get_filename(url)
                 filepath = os.path.join(dst, filename)
 
-                if "drive.google.com" in url:
+                parsed_url = urlparse(url)
+                if parsed_url.hostname == "drive.google.com":
                     gdown = gdown_download(url, dst, filepath)
                 elif url.startswith("/content/drive/MyDrive/"):
                     return url
                 else:
-                    if "huggingface.co" in url:
+                    if parsed_url.hostname == "huggingface.co":
                         if "/blob/" in url:
                             url = url.replace("/blob/", "/resolve/")
                     aria2_download(dst, filename, url)
